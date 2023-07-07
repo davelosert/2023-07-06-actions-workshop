@@ -1,0 +1,37 @@
+name: Deploy (Test)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    environment:
+      name: staging
+      url: "https://${{ steps.deploy.outputs.fqdn }}"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Log in to Azure using OIDC
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          subscription-id: ${{ secrets.SUBSCRIPTION_ID }}
+
+      - name: Deploy resources
+        uses: azure/arm-deploy@v1
+        id: deploy
+        with:
+          scope: subscription
+          region: westeurope
+          template: ./infra/web-app.bicep
+          resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
+          parameters: "containerName=davelosert/2023-07-06-actions-workshop containerVersion=44763f7 appName=2023-07-07-davelosert-actions-workshop"
