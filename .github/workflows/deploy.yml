@@ -14,7 +14,7 @@ jobs:
       id-token: write
     environment:
       name: staging
-      url: "https://${{ steps.deploy.outputs.url }}"
+      url: "${{ steps.deploy.outputs.url }}"
 
     steps:
       - uses: actions/checkout@v2
