@@ -41,4 +41,4 @@ resource webApp 'Microsoft.Web/sites@2022-09-01' = {
     }
   }
 }
-output url string = 'https://${appName}.azurewesites.net'
+output url string = 'https://${appName}.azurewebsites.net'
