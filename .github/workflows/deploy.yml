@@ -14,7 +14,7 @@ jobs:
       id-token: write
     environment:
       name: staging
-      url: "https://${{ steps.deploy.outputs.fqdn }}"
+      url: "https://${{ steps.deploy.outputs.url }}"
 
     steps:
       - uses: actions/checkout@v2
@@ -30,7 +30,7 @@ jobs:
         uses: azure/arm-deploy@v1
         id: deploy
         with:
-          scope: subscription
+          scope: resourceGroup
           region: westeurope
           template: ./infra/web-app.bicep
           resourceGroupName: ${{ vars.RESOURCE_GROUP_NAME }}
