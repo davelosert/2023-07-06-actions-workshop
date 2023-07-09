@@ -13,7 +13,7 @@ jobs:
       contents: read
       id-token: write
     environment:
-      name: staging
+      name: Staging
       url: "${{ steps.deploy.outputs.url }}"
 
     steps:
