@@ -10,6 +10,10 @@ function sanitizeUrl(url: string) {
   if (u.startsWith("javascript:")) {
     return "about:blank";
   }
+
+  if (u.startsWith("data:")) {
+    return "about:blank";
+  }
   return url;
 }
 
