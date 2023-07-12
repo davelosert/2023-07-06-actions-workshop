@@ -24,6 +24,5 @@ jobs:
       - run: npm run build
       - run: npm run test
       - name: "Report Coverage"
-        uses: davelosert/vitest-coverage-report-action@v1
-        with:
-          vite-config-path: vite.config.ts
+        if: always()
+        uses: davelosert/vitest-coverage-report-action@v2
